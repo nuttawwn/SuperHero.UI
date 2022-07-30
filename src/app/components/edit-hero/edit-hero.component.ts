@@ -10,7 +10,9 @@ import { SuperHero } from 'src/app/models/super-hero';
 export class EditHeroComponent implements OnInit {
 
   @Input() hero?: SuperHero;
+
   @Output() heroUpdated = new EventEmitter<SuperHero[]>();
+  @Output() Exit = new EventEmitter<boolean>();
 
   constructor(private superHeroService: SuperHeroService) { }
 
@@ -29,6 +31,9 @@ export class EditHeroComponent implements OnInit {
   CreateHero(hero: SuperHero) {
     this.superHeroService.CreateSuperHero(hero).subscribe((heroes: SuperHero[]) => this.heroUpdated.emit(heroes));
     this.hero = new SuperHero();
+  }
+  clear(){
+    this.Exit.emit(true);
   }
 
 }
